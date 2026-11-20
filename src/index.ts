@@ -2,9 +2,14 @@ export const DEFAULT_LOADER_SRC = "https://dling.live/widget/v1/loader.js";
 
 export interface BootOptions {
   channel: string;
+  position?: "right" | "left";
+  history?: boolean;
 }
 
 export type BootCallback = (error: Error | null) => void;
+
+export type OpenReason = "api" | "interaction" | "link";
+export type CloseReason = "api" | "interaction" | "back" | "player";
 
 export interface LoadOptions {
   src?: string;
@@ -25,8 +30,8 @@ export interface DlingLiveApi {
   close(): void;
   destroy(): void;
 
-  onOpen(handler: () => void): void;
-  onClose(handler: () => void): void;
+  onOpen(handler: (reason: OpenReason) => void): () => void;
+  onClose(handler: (reason: CloseReason) => void): () => void;
 }
 
 const SCRIPT_ID = "dlinglive-loader";
@@ -35,13 +40,23 @@ function call(cmd: Command, ...args: unknown[]): void {
   window.DlingLive?.(cmd, ...args);
 }
 
+function subscribe<R>(cmd: "onOpen" | "onClose", handler: (reason: R) => void): () => void {
+  let active = true;
+  call(cmd, (reason: R) => {
+    if (active) handler(reason);
+  });
+  return () => {
+    active = false;
+  };
+}
+
 const api: DlingLiveApi = {
   boot: (options, callback) => (callback ? call("boot", options, callback) : call("boot", options)),
   open: () => call("open"),
   close: () => call("close"),
   destroy: () => call("destroy"),
-  onOpen: (handler) => call("onOpen", handler),
-  onClose: (handler) => call("onClose", handler),
+  onOpen: (handler) => subscribe("onOpen", handler),
+  onClose: (handler) => subscribe("onClose", handler),
 };
 
 export function loadDlingLive(options: LoadOptions = {}): DlingLiveApi {

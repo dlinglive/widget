@@ -33,10 +33,17 @@ describe("loadDlingLive", () => {
     expect(window.DlingLive?.q).toEqual([["boot", { channel: "test-a" }, done]]);
   });
 
-  it("queues open/close handlers for the loader", () => {
+  it("queues open/close handlers for the loader and can unsubscribe before it arrives", () => {
     const onOpen = vi.fn();
-    loadDlingLive({ src: "https://cdn.example/loader.js" }).onOpen(onOpen);
-    expect(window.DlingLive?.q).toEqual([["onOpen", onOpen]]);
+    const off = loadDlingLive({ src: "https://cdn.example/loader.js" }).onOpen(onOpen);
+    const entry = window.DlingLive?.q?.[0] as [string, (reason: string) => void];
+    const [cmd, wrapped] = entry;
+    expect(cmd).toBe("onOpen");
+    wrapped("api");
+    expect(onOpen).toHaveBeenCalledWith("api");
+    off();
+    wrapped("interaction");
+    expect(onOpen).toHaveBeenCalledTimes(1);
   });
 
   it("forwards to the loaded widget", () => {
@@ -48,6 +55,15 @@ describe("loadDlingLive", () => {
 });
 
 describe("<DlingLive>", () => {
+  it("passes position to boot", () => {
+    const widget = Object.assign(vi.fn(), { loaded: true });
+    window.DlingLive = widget;
+    const root = createRoot(document.createElement("div"));
+    act(() => root.render(<DlingLive channel="test-a" position="left" />));
+    act(() => root.unmount());
+    expect(widget.mock.calls[0]).toEqual(["boot", { channel: "test-a", position: "left" }]);
+  });
+
   it("boots on mount, reboots on channel change, destroys on unmount", () => {
     const widget = Object.assign(vi.fn(), { loaded: true });
     window.DlingLive = widget;

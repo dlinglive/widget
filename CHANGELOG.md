@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.4.0
+
+- `onOpen`·`onClose` 가 해제 함수를 돌려주고, handler 에 열고 닫은 이유(`reason`)를 넘긴다. 로더가 오기 전에 해제해도 된다.
+- `boot` 옵션 `position`(`right`·`left`), `history`(모바일 뒤로가기로 닫기, 기본 켜짐). React `<DlingLive position />`.
+- 로더(CDN) 동작: Esc 로 닫기와 포커스 복원, 모바일 전체 화면 동안 스크롤 잠금·뒤로가기로 닫기, `?dlinglive=open` 링크로 열기, 탭이 가려지면 상태 확인 멈춤, LIVE 시작 알림, safe area, 움직임 줄이기.
+
 ## 0.3.1
 
 - 코드 변경 없음. npm trusted publishing(OIDC)으로 배포한 첫 버전.
