@@ -27,6 +27,12 @@ describe("loadDlingLive", () => {
     expect(window.DlingLive?.q).toEqual([["boot", { channel: "test-a" }]]);
   });
 
+  it("queues identify for the loader", () => {
+    const m = { memberId: "u1", memberHash: "a".repeat(64) };
+    loadDlingLive({ src: "https://cdn.example/loader.js" }).identify(m);
+    expect(window.DlingLive?.q).toEqual([["identify", m]]);
+  });
+
   it("hands the boot callback to the loader", () => {
     const done = vi.fn();
     loadDlingLive({ src: "https://cdn.example/loader.js" }).boot({ channel: "test-a" }, done);

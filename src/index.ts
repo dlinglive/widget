@@ -6,6 +6,11 @@ export interface BootOptions {
   history?: boolean;
 }
 
+export interface IdentifyOptions {
+  memberId: string;
+  memberHash: string;
+}
+
 export type BootCallback = (error: Error | null) => void;
 
 export type OpenReason = "api" | "interaction" | "link";
@@ -15,7 +20,7 @@ export interface LoadOptions {
   src?: string;
 }
 
-type Command = "boot" | "open" | "close" | "destroy" | "onOpen" | "onClose";
+type Command = "boot" | "identify" | "open" | "close" | "destroy" | "onOpen" | "onClose";
 type Global = ((cmd: Command, ...args: unknown[]) => void) & { q?: unknown[][]; loaded?: boolean };
 
 declare global {
@@ -26,6 +31,7 @@ declare global {
 
 export interface DlingLiveApi {
   boot(options: BootOptions, callback?: BootCallback): void;
+  identify(options: IdentifyOptions | null): void;
   open(): void;
   close(): void;
   destroy(): void;
@@ -52,6 +58,7 @@ function subscribe<R>(cmd: "onOpen" | "onClose", handler: (reason: R) => void): 
 
 const api: DlingLiveApi = {
   boot: (options, callback) => (callback ? call("boot", options, callback) : call("boot", options)),
+  identify: (options) => call("identify", options),
   open: () => call("open"),
   close: () => call("close"),
   destroy: () => call("destroy"),

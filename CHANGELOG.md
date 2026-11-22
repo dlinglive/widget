@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.5.0
+
+- `identify({ memberId, memberHash } | null)`: 회원 연동. `memberHash` 는 고객사 서버가 hex(HMAC-SHA256(비밀값, memberId)) 로 만든다. 검증은 dlinglive 서버가 하고 실패하면 비회원으로 동작한다. 근거: 채널톡 `memberHash`, Intercom identity verification.
+
 ## 0.4.0
 
 - `onOpen`·`onClose` 가 해제 함수를 돌려주고, handler 에 열고 닫은 이유(`reason`)를 넘긴다. 로더가 오기 전에 해제해도 된다.
