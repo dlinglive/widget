@@ -4,6 +4,7 @@ export interface BootOptions {
   channel: string;
   position?: "right" | "left";
   history?: boolean;
+  mini?: boolean;
 }
 
 export interface IdentifyOptions {

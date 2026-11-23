@@ -65,9 +65,12 @@ describe("<DlingLive>", () => {
     const widget = Object.assign(vi.fn(), { loaded: true });
     window.DlingLive = widget;
     const root = createRoot(document.createElement("div"));
-    act(() => root.render(<DlingLive channel="test-a" position="left" />));
+    act(() => root.render(<DlingLive channel="test-a" position="left" mini={false} />));
     act(() => root.unmount());
-    expect(widget.mock.calls[0]).toEqual(["boot", { channel: "test-a", position: "left" }]);
+    expect(widget.mock.calls[0]).toEqual([
+      "boot",
+      { channel: "test-a", position: "left", mini: false },
+    ]);
   });
 
   it("boots on mount, reboots on channel change, destroys on unmount", () => {

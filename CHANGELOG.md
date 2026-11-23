@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- `boot` 옵션 `mini`(기본 켜짐): 방송 중이거나 다시보기가 있는 채널이면 첫 방문 때 우측 하단(또는 `position`)에 미니 플레이어가 음소거로 자동 재생된다. 누르면 크게 열리고, 닫으면 미니로 돌아간다. 미니의 ✕ 를 누르면 그 방송 동안 이 브라우저에서 다시 띄우지 않는다. `mini: false` 면 런처만 띄운다. React `<DlingLive mini />`. 근거: Firework 플로팅 플레이어 `player_placement`(기본 우측 하단), Bambuser miniplayer·음소거 자동재생.
+
 ## 0.5.0
 
 - `identify({ memberId, memberHash } | null)`: 회원 연동. `memberHash` 는 고객사 서버가 hex(HMAC-SHA256(비밀값, memberId)) 로 만든다. 검증은 dlinglive 서버가 하고 실패하면 비회원으로 동작한다. 근거: 채널톡 `memberHash`, Intercom identity verification.
