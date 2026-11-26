@@ -1,7 +1,8 @@
 # Changelog
 
-## Unreleased
+## 0.6.0
 
+- 기본 로더 주소가 `https://dling.live/widget/v2/loader.js` 로 바뀌었다. 옛 `/widget/v1/loader.js` 와 v1 시청 화면(`/web/c/`·`/web/live/`·`/c/`)은 지원을 끝냈다(404). 0.5.0 이하에서 `src` 를 지정하지 않았다면 이 버전으로 올린다. 시청 화면 주소는 `/web/v2/c/<채널>`·`/web/v2/live/<방송ID>`.
 - `boot` 옵션 `mini`(기본 켜짐): 방송 중이거나 다시보기가 있는 채널이면 첫 방문 때 우측 하단(또는 `position`)에 미니 플레이어가 음소거로 자동 재생된다. 누르면 크게 열리고, 닫으면 미니로 돌아간다. 미니의 ✕ 를 누르면 그 방송 동안 이 브라우저에서 다시 띄우지 않는다. `mini: false` 면 런처만 띄운다. React `<DlingLive mini />`. 근거: Firework 플로팅 플레이어 `player_placement`(기본 우측 하단), Bambuser miniplayer·음소거 자동재생.
 
 ## 0.5.0

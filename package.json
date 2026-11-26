@@ -1,6 +1,6 @@
 {
   "name": "@dlinglive/widget",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "dlinglive 라이브 위젯 로더와 React 컴포넌트",
   "license": "UNLICENSED",
   "repository": {
