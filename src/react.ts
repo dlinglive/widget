@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { type BootOptions, type LoadOptions, loadDlingLive } from "./index";
+import { type BootOptions, type LoadOptions, loadDlingLive } from "./index.js";
 
 export interface DlingLiveProps extends LoadOptions {
   channel: string;

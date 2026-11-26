@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.7.0
+
+- 기본 로더는 `https://dling.live/widget/loader.js`다. 패키지를 사용 중이면 0.7.0으로 올리고, HTML에 직접 넣었거나 `src`를 지정했다면 이 주소로 갱신한다.
+- 최신 시청 화면은 채널 `/web/c/<채널>`, 방송 `/web/live/<방송ID>`에서 제공한다. 이전 버전 경로는 404다.
+
 ## 0.6.0
 
 - 기본 로더 주소가 `https://dling.live/widget/v2/loader.js` 로 바뀌었다. 옛 `/widget/v1/loader.js` 와 v1 시청 화면(`/web/c/`·`/web/live/`·`/c/`)은 지원을 끝냈다(404). 0.5.0 이하에서 `src` 를 지정하지 않았다면 이 버전으로 올린다. 시청 화면 주소는 `/web/v2/c/<채널>`·`/web/v2/live/<방송ID>`.

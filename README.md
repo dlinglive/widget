@@ -4,7 +4,7 @@
 
 [들링라이브](https://dling.live) 라이브 방송을 내 쇼핑몰·웹사이트에 띄우는 위젯입니다. 페이지 오른쪽 아래에 런처 버튼이 생기고, 방송 중이면 LIVE 배지가 붙습니다. 버튼을 누르면 시청·채팅 패널이 열립니다.
 
-이 패키지는 위젯 로더(`https://dling.live/widget/v2/loader.js`)를 페이지에 넣고, 로더가 준비되기 전의 호출을 큐에 쌓아 두었다가 실행하며, TypeScript 타입을 제공합니다. 위젯 본체는 CDN 에서 받으므로 위젯이 개선되어도 패키지를 다시 설치할 필요가 없습니다.
+이 패키지는 위젯 로더(`https://dling.live/widget/loader.js`)를 페이지에 넣고, 로더가 준비되기 전의 호출을 큐에 쌓아 두었다가 실행하며, TypeScript 타입을 제공합니다. 위젯 본체는 CDN 에서 받으므로 위젯이 개선되어도 패키지를 다시 설치할 필요가 없습니다.
 
 ## 목차
 
@@ -26,7 +26,7 @@ pnpm add @dlinglive/widget
 yarn add @dlinglive/widget
 ```
 
-아래 예시의 `CHANNEL_SLUG` 는 내 채널 주소로 바꿉니다. 채널 시청 화면 주소 `https://dling.live/web/v2/c/<채널 주소>` 의 마지막 부분입니다.
+아래 예시의 `CHANNEL_SLUG` 는 내 채널 주소로 바꿉니다. 채널 시청 화면 주소 `https://dling.live/web/c/<채널 주소>` 의 마지막 부분입니다.
 
 ## 빠른 시작
 
@@ -72,9 +72,9 @@ SPA 에서 위젯을 띄울 화면을 벗어날 때는 `live.destroy()` 를 부�
 
 로더 script 를 페이지에 한 번만 넣고 API 객체를 돌려줍니다. 여러 번 불러도 script 는 하나만 들어갑니다. 서버(SSR)에서 불러도 아무것도 하지 않습니다.
 
-| 옵션  | 타입     | 기본값                                   | 설명      |
-| ----- | -------- | ---------------------------------------- | --------- |
-| `src` | `string` | `https://dling.live/widget/v2/loader.js` | 로더 주소 |
+| 옵션  | 타입     | 기본값                                | 설명      |
+| ----- | -------- | ------------------------------------- | --------- |
+| `src` | `string` | `https://dling.live/widget/loader.js` | 로더 주소 |
 
 ### 명령
 
@@ -122,7 +122,7 @@ SPA 에서 위젯을 띄울 화면을 벗어날 때는 `live.destroy()` 를 부�
 - 아이폰 노치·홈 바 영역(safe area)을 피해 배치합니다. 움직임 줄이기 설정을 켠 사용자에게는 애니메이션을 끕니다.
 - 페이지 주소에 `?dlinglive=open` 을 붙여 공유하면 그 링크로 들어온 사람에게 패널이 바로 열립니다. 열고 나면 주소에서 이 값을 지웁니다.
 - 다른 페이지의 iframe 안에서는 위젯을 띄우지 않습니다(`boot` 가 error 로 끝납니다).
-- 기본 로더 주소는 `/widget/v2/loader.js` 입니다. 같은 주소에는 하위 호환되는 변경만 반영됩니다.
+- 기본 로더 주소는 `/widget/loader.js` 입니다. 직접 삽입한 스크립트와 `src` 설정에도 이 주소를 사용합니다.
 
 ## CSP 설정
 
@@ -139,7 +139,7 @@ frame-src https://dling.live
 빌드 도구 없이 HTML 에 직접 넣거나, 아임웹·식스샵·고도몰·메이크샵·카페24·Shopify·WordPress 같은 쇼핑몰 빌더의 "코드 삽입" 설정에 붙여 넣을 때는 패키지 없이 아래 한 줄이면 됩니다.
 
 ```html
-<script async src="https://dling.live/widget/v2/loader.js" data-channel="CHANNEL_SLUG"></script>
+<script async src="https://dling.live/widget/loader.js" data-channel="CHANNEL_SLUG"></script>
 ```
 
 런처를 왼쪽에 두려면 `data-position="left"` 를, 첫 방문 미니 플레이어를 끄려면 `data-mini="false"` 를 더합니다. CSP 에 nonce 를 쓰면 이 script 태그에 `nonce` 를 붙이세요. 위젯 스타일에도 같은 값이 쓰입니다.

@@ -1,4 +1,4 @@
-export const DEFAULT_LOADER_SRC = "https://dling.live/widget/v2/loader.js";
+export const DEFAULT_LOADER_SRC = "https://dling.live/widget/loader.js";
 
 export interface BootOptions {
   channel: string;
