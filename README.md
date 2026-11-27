@@ -126,13 +126,18 @@ SPA 에서 위젯을 띄울 화면을 벗어날 때는 `live.destroy()` 를 부�
 
 ## CSP 설정
 
-사이트에 `Content-Security-Policy` 가 있으면 아래를 추가합니다.
+사이트에 `Content-Security-Policy` 가 있으면 아래를 추가합니다. 위젯 로더가 사이트 페이지에서 직접 보내는 요청만 허용하면 됩니다. 영상·채팅은 플레이어 iframe(`https://dling.live`) 안에서 그 문서의 정책으로 동작하므로 사이트 CSP 에 넣지 않습니다.
 
 ```
 script-src https://dling.live
-connect-src https://chat.dling.live
+connect-src https://dling.live https://chat.dling.live https://*.cloudflarestream.com
 frame-src https://dling.live
+img-src https://*.cloudflarestream.com
 ```
+
+- `connect-src`: 설치 확인 신호(`dling.live`), 채널 방송 상태(`chat.dling.live`), 방송 중 확인(Cloudflare Stream). 빠지면 방송 중에도 LIVE 표시와 미니 플레이어가 뜨지 않습니다.
+- `img-src`: 미니 플레이어가 영상을 띄우기 전 보이는 썸네일입니다.
+- `style-src` 를 nonce 로 제한하면 script 태그에 같은 `nonce` 를 붙입니다.
 
 ## script 태그로 설치
 
